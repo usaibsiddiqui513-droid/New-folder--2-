@@ -3,6 +3,13 @@ import { ArrowLeft, ShoppingBag } from "lucide-react";
 import ProductDetailClient from "@/components/ProductDetailClient";
 import { products } from "@/data/products";
 
+// Statically prerender all 16 product pages for maximum performance
+export function generateStaticParams() {
+  return products.map((product) => ({
+    id: product.id,
+  }));
+}
+
 // Generate dynamic SEO metadata
 export async function generateMetadata({ params }) {
   const { id } = await params;

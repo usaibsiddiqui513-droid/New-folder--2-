@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
@@ -42,9 +43,13 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans antialiased flex flex-col selection:bg-violet-600/20 selection:text-violet-800">
         <CartProvider>
-          <Navbar />
+          <Suspense fallback={<div className="h-20 bg-white/80 border-b border-slate-200" />}>
+            <Navbar />
+          </Suspense>
           <div className="flex-1">
-            {children}
+            <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading page...</div>}>
+              {children}
+            </Suspense>
           </div>
           <Footer />
           <CartDrawer />
